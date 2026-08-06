@@ -1,3 +1,4 @@
 print(' Hello, World!')
-nxpze = "นพรัตน์ ศณีวงษา"
+nxpze = "นพรัตน์ ศรีวงษา"
+
 print(f"Hello, {nxpze}!")
