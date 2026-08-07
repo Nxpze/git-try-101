@@ -1,2 +1,3 @@
 bruhhhhhh = 3
-print(bruhhhhhh)
+
+print(bruhhhhhh*2)
