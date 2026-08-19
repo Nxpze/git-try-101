@@ -24,5 +24,6 @@ if __name__ == "__main__":
         print("กรุณากรอกข้อมูลให้ถูกต้อง")
         exit()
 
+#just a tester one don't mind it
 
 
