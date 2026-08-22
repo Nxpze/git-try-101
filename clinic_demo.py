@@ -110,3 +110,25 @@ class Bill:
 
   def calculate_total_payment(self):
     return round(self.treatment_fee + self.medication_fee, 2)
+
+
+def age_calculator(dob):
+    birthdate = datetime.strptime(dob, "%Y/%m/%d").date()
+    today = datetime.today().date()
+    age = today.year - birthdate.year - ((today.month, today.day) < (birthdate.month, birthdate.day))
+    return age
+
+
+try:
+    patient_id = str(input("กรุณากรอกไอดีคนไข้: "))
+    fullname = str(input("กรุณากรอกชื่อคนไข้: "))
+    dob = str(input("กรุณากรอกวันเกิด YYYY/MM/DD: "))
+
+    age = age_calculator(dob)
+    if age >= 20:
+            print(f"คุณบรรลุนิติภาวะแล้ว {fullname} อายุ {age} ปี")
+    else:
+            print(f"คุณยังไม่บรรลุนิติภาวะ {fullname} อายุ {age} ปี")
+except ValueError:
+        print("กรุณากรอกข้อมูลให้ถูกต้อง")
+        exit()
