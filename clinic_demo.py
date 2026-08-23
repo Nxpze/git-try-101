@@ -390,6 +390,25 @@ class ClinicSystem:
         df_bills = pd.DataFrame([b.to_dict() for b in self.bills.values()])
         return df_patients, df_queues, df_records, df_bills
 
+    
+    def load_patients_from_dataframe(self, df):
+        """โหลดข้อมูลคนไข้จำนวนมากจาก Pandas DataFrame เข้าระบบ"""
+        count = 0
+        for _, row in df.iterrows():
+            self.register_patient(
+                fullname=row.get("fullname"),
+                dob=str(row.get("dob")),
+                phone_number=str(row.get("phone_number")),
+                allergies=row.get("allergies", "ไม่มี"),
+                underlying_disease=row.get("underlying_disease", "ไม่มี"),
+                p_id=str(row.get("p_id")) if pd.notna(row.get("p_id")) else None
+            )
+            count += 1
+        print(f"✅ โหลดข้อมูลคนไข้จาก DataFrame สำเร็จทั้งหมด {count} รายการ")
+    def load_patients_from_csv(self, file_path):
+        """อ่านไฟล์ CSV และโหลดข้อมูลคนไข้เข้าสู่ระบบอัตโนมัติ"""
+        df = pd.read_csv(file_path)
+        self.load_patients_from_dataframe(df)
 
 # ---------------------------------------------------------
 # Demonstration Workflow & Interactive Console
@@ -741,8 +760,13 @@ def interactive_patient_entry(clinic=None):
 # ---------------------------------------------------------
 
     # 1. รันการจำลองระบบทั้งหมดตาม Crow's Foot Diagram และ Flowchart
-clinic_instance = run_demo_simulation()
-interactive_patient_entry(clinic=None)
+#clinic_instance = run_demo_simulation()
+
+clinic_test = ClinicSystem()
+
+patient_df = pd.read_csv("https://raw.githubusercontent.com/Nxpze/git-try-101/refs/heads/main/patient.csv")
+clinic_test.load_patients_from_dataframe(patient_df)
+interactive_patient_entry(clinic_test)
     # 2. ปลดล็อกบรรทัดด้านล่างเมื่อต้องการทดสอบโหมด Interactive รับคนไข้จริง
     # print("\n>>> เริ่มต้นทดสอบโหมด Interactive รับคนไข้ ตรวจรักษา ใบนัด และคิดเงิน <<<")
     # interactive_patient_entry(clinic_instance)
