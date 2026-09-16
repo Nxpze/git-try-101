@@ -2,3 +2,4 @@ database/
 .venv/
 __py
 __pycache__/
+.env
